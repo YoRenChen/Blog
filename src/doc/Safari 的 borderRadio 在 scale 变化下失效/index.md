@@ -1,6 +1,6 @@
 # Safari 的 borderRadio 在 scale 变化下失效
-## 介绍 clip-path: content-box;
-我们提供结构：
+
+提供结构：
 ```
 <div class="sup">
   <div class="sub"></div>
@@ -30,6 +30,16 @@
 
 得到结果：
 
-<img width="350" height="300" href="https://github.com/YoRenChen/Blog/blob/main/src/doc/Safari%20%E7%9A%84%20borderRadio%20%E5%9C%A8%20scale%20%E5%8F%98%E5%8C%96%E4%B8%8B%E5%A4%B1%E6%95%88/index.gif"/>
+![result](index.gif)
 
 **Safari 的 scale 过程中，border-radius 是失效的，直到 scale 执行完毕**
+但在 chrome 无异样
+## 使用 clip-path: content-box;
+
+`` clip-path``: 使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。
+`` clip-path: content-box``: 使用 content box 作为引用框。
+
+## 使用 -webkit-mask-image: -webkit-radial-gradient(white, black)
+使用 radial gradient 防止子元素的内容显示在父元素的边界之外。
+
+[详情阅读](https://stackoverflow.com/questions/21087979/probleme-css3-scale-transform-and-overflowhidden-on-safari)
