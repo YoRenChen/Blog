@@ -28,5 +28,8 @@
 
 ```
 
-得到结果
-[]()
+得到结果：
+
+<img width="350" height="300" href="https://github.com/YoRenChen/Blog/blob/main/src/doc/Safari%20%E7%9A%84%20borderRadio%20%E5%9C%A8%20scale%20%E5%8F%98%E5%8C%96%E4%B8%8B%E5%A4%B1%E6%95%88/index.gif"/>
+
+**Safari 的 scale 过程中，border-radius 是失效的，直到 scale 执行完毕**
