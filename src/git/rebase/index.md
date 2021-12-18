@@ -26,10 +26,14 @@
 - git checkout feat
 
 # feat
-- git rebase master // rebase
+- git rebase main // rebase
 ... 解决冲突
 - git push origin feat
 ```
+
+## 2. rebase 使用细节
+如上 在 feat 分支 执行 git rebase main 时，我们的当地分支变成了 main，而外来分支变成了 feat
+
 
 ## 危险操作
 ### 多人同分支开始使用 rebase 会覆盖其他的 commit 历史记录 .
