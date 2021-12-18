@@ -38,17 +38,18 @@
 让分支变得整洁，减少使用 merge 产生的合并记录。
 
 #### 本地分支 feat-01 新增内容后，在当前分支使用 ``git pull`` 拉取 origin master，解决冲突后再提交：
-![image](https://user-images.githubusercontent.com/30005394/146636918-827df08d-fefe-49d7-b39e-40133aaa498c.png)
+<img src="./image/image.png" width="600"/>
 
 这个时候我们做了一次提交会提交2个 commit (主内容 feat-01 和 merge 信息): 
 
-![image](https://user-images.githubusercontent.com/30005394/146637343-8650fa96-8412-4b4f-afaf-36098f4b49cb.png)
+<img src="./image/img-02.png" width="400"/>
 
 #### 本地分支 feat-01 新增内容后，在 master 分支使用 ``git pull`` 拉取 origin master，再切回 feat-01 解决冲突后再提交：
-![image](https://user-images.githubusercontent.com/30005394/146637244-7629d010-f39c-4542-9956-9c800b803f45.png)
+<img src="./image/img-03.png" width="400"/>
 
 这时我们得到的提交 commit 只有一个，而且也跟分支 master 在同一条线上：
-![image](https://user-images.githubusercontent.com/30005394/146637277-08b21a38-32bb-4a55-8609-416f4a3780b8.png)
+
+<img src="./image/img-04.png" width="400"/>
 
 ### 当执行 git rebase 时做了什么
 拿分支 feat-01 为例：
