@@ -13,23 +13,27 @@
 已知远程分支 master，本地默认分支 master。
 远程分支 master 和本地分支 feat 的操作。
 ```
+<!-- 先创建个分支 -->
 # master
 - git fetch origin master // 拉取远程 master 分支
 - git checkout -b feat // 查找并切换到分支 feat (-b 在查找过程中没有就新建)
 
+<!-- 进行开发 -->
 # feat
-... do soming edit
+（... do soming edit）
 - git add . // 文件添加到暂存区
 - git commit -m 'feat edit' // 将暂存区内容添加到本地仓库中
 - git checkout master
 
-# main
+<!-- 开发完成了，准备提交代码。因为是提交到 远程master，所以先跟新一下远程内容到本地 -->
+# master
 - git pull origin master // 拉取最新远程 master 分支
 - git checkout feat
 
+<!-- 合并两个分支，解决冲突之后就可以提交我们分支代码，合并过程遇到请看下文 -->
 # feat
 - git rebase master // rebase
-... 解决冲突
+（... 解决冲突）
 - git push origin feat
 ```
 
