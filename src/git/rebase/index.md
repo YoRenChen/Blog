@@ -1,13 +1,15 @@
 # git rebase
 > git-rebase: Forward-port local commits to the updated upstream head
-> 
-> 将一个分支集成到另一个分支, 将一系列提交组合到新的提交的过程。
+
+将一个分支集成到另一个分支, 将一系列提交组合到新的提交的过程。
 
 ## 目录
 1. 我工作中的使用步骤
 2. 各种使用细节
 3. 原理分析
 4. 对外如何介绍
+
+## 结论
 
 ## 1. 工作的使用步骤
 已知远程分支 master，本地默认分支 master。
@@ -41,7 +43,7 @@
 - git push origin feat
 ```
 
-## 2. rebase 使用细节
+## 2. rebase 理解
 ### git rebase 解决了什么
 让分支变得整洁，减少使用 merge 产生的合并记录。
 
@@ -69,19 +71,19 @@
 <img src="./image/img-09.png" width="100%"/>
 <img src="./image/img-07.png" width="600"/>
 
+**注意：在 feat 分支 执行 git rebase main 时，我们的当地分支变成了 main，而外来分支变成了 feat**
 
-### 123
-如上 在 feat 分支 执行 git rebase main 时，我们的当地分支变成了 main，而外来分支变成了 feat
 
-### 
+## 3. rebase 过程中解决冲突
+合并过程中会生成一条临时分支，这条临时分支就是处理冲突:
+``git rebase (--continue | --skip | --abort | --quit | --edit-todo | --show-current-patch)``
+
+
+## 4. git rebase -i 多条记录合并
+``git rebase -i HEAD~(n)``
 
 
 ## 危险操作
 ### 多人同分支开始使用 rebase 会覆盖其他的 commit 历史记录 .
 不要对一个共享的、已在公共库上的分支进行 rebase 操作。只有私有分支才适用 rebase 。
 
-## 合并其他分支
-### git rebase
-
-## 合并自身分支
-### git rebase -i HEAD~(n)
