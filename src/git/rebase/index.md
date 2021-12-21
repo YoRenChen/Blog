@@ -15,11 +15,13 @@
 ```
 <!-- 先创建个分支 -->
 # master
+
 - git fetch origin master // 拉取远程 master 分支
 - git checkout -b feat // 查找并切换到分支 feat (-b 在查找过程中没有就新建)
 
 <!-- 进行开发 -->
 # feat
+
 （... do soming edit）
 - git add . // 文件添加到暂存区
 - git commit -m 'feat edit' // 将暂存区内容添加到本地仓库中
@@ -27,11 +29,13 @@
 
 <!-- 开发完成了，准备提交代码。因为是提交到 远程master，所以先跟新一下远程内容到本地 -->
 # master
+
 - git pull origin master // 拉取最新远程 master 分支
 - git checkout feat
 
 <!-- 合并两个分支，解决冲突之后就可以提交我们分支代码，合并过程遇到请看下文 -->
 # feat
+
 - git rebase master // rebase
 （... 解决冲突）
 - git push origin feat
@@ -56,12 +60,14 @@
 <img src="./image/img-04.png" width="400"/>
 
 ### 当执行 git rebase 时做了什么
-拿分支 feat-01 为例：
+以在 feat-01 执行 ``git rebase master`` 为例：
 
-1. git 会把 feat-01 分支里面的每个 commit 取消掉
-2. 把上面的操作临时保存成 patch 文件，存在 .git/rebase 目录下
-3. 把 feature1 分支更新到最新的 master 分支
-4. 把上面保存的 patch 文件应用到 feature1 分支上
+1. git 找到 feat-01 和 master 的共同 commit 记录
+2. 把 feat-01 共同 commit 之后里面的每个 commit 提出临时保存成 patch 文件，存在 .git/rebase 目录下
+3. 将提出的 commit 更新到 master 分支的最新提交的后面
+4. 将 feat-01 分支指向最后一个 commit
+<img src="./image/img-08.png" width="100%"/>
+
 
 ### 123
 如上 在 feat 分支 执行 git rebase main 时，我们的当地分支变成了 main，而外来分支变成了 feat
