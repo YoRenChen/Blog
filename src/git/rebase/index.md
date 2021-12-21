@@ -66,7 +66,35 @@
 **注意：当我们在 Rebasing 的时候可以执行 ``git rebase --abort`` 退出回到原始，如果合并完成了就只能使用 ``git reset`` 等操作回退版本**
 
 ## 3. git rebase -i 多条记录合并
+我们的 commit 信息比较多重复需要合并处理
+
 <img src="./image/img-11.png" width="400"/>
+以图为例子：
+我需要合并前3条 commit 信息为一条。执行 ``git rebase -i HEAD~3 ``，展示如图：
+
+<img src="./image/img-12.png" width="400"/>
+
+*留意前三个 pick，他们依次倒叙，最后一条 pick 为最新提交的 commit*
+
+我们使用``s, squash <commit> = use commit, but meld into previous commit``进行合并，操作如 vim。
+
+<img src="./image/img-13.png" width="400"/>
+
+*我们必须要留一条 pick，但 pick 不能是最后一条(squash 规则)*
+
+``!qw``退出编辑并保存，此时 git 又会提供临时分支：
+
+<img src="./image/img-14.png" width="600"/>
+
+我们无改动只需要再次 ``!qw``退出编辑并保存即可。
+
+那么我们就得到了一条合并之后的信息：
+
+<img src="./image/img-15.png" width="400"/>
+
+如果我们在第一次保存退出，git又给我提供了临时分支的那步骤执行了 ``git commit`` 操作：
+
+
 
 ## 4. rebase 理解
 ### git rebase 解决了什么
