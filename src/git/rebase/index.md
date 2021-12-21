@@ -92,9 +92,9 @@
 
 <img src="./image/img-15.png" width="400"/>
 
-如果我们在第一次保存退出，git又给我提供了临时分支的那步骤执行了 ``git commit`` 操作：
+如果我们在第一次保存退出，git又给我提供了临时分支的那步骤执行了 ``git commit`` 操作，就会多一条合并记录:
 
-
+<img src="./image/img-16.png" width="400"/>
 
 ## 4. rebase 理解
 ### git rebase 解决了什么
