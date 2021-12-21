@@ -10,8 +10,11 @@
 4. 对外如何介绍
 
 ## 结论
+1. 和 ``git merge`` 功能一样都是合并两条分支的commit。
+2. 与 merge 相比没额外的 merge 合并信息，更优雅显示在同一条流上.(把目标分支新增的 commit 生成 patch 并迁移到合并分支)
+3. 避免在公共的分支执行 rebase 操作，会覆盖其他的人提交的 commit 历史记录。
 
-## 1. 工作的使用步骤
+## 1. 工作的使用
 已知远程分支 master，本地默认分支 master。
 远程分支 master 和本地分支 feat 的操作。
 ```
@@ -43,7 +46,29 @@
 - git push origin feat
 ```
 
-## 2. rebase 理解
+## 2. rebase 过程中解决冲突
+``git rebase (--continue | --skip | --abort | --quit | --edit-todo | --show-current-patch)``
+
+合并过程中会生成一条临时分支，这条临时分支就是处理冲突:
+
+<img src="./image/img-10.png" width="400"/>
+
+*可以看到，此时的分支从 feat-01 变成临时分支 91b9...!(Rebasing)*
+
+``git rebase --continue``： 如果处理完冲突，执行 ``git commit``操作保存当前的 commit 信息，如果此时还是临时分支，执行该命令，进行下一个 commit 节点检索。
+
+``git rebase --skip``: 让我们忽略这次的 commit 节点，进入到下一次 commit 节点.
+
+``git rebase --abort``: 放弃合并，退出此次 rebase 并回到 rebase 操作之前的状态。(也就是把这个临时分支强制退出并切换到 feat-01)
+
+将所有新的 commit 进行冲突检索并处理完之后，临时分支会被删除，当前处理的 commit 最终会指向替换为 feat-01。
+
+**注意：当我们在 Rebasing 的时候可以执行 ``git rebase --abort`` 退出回到原始，如果合并完成了就只能使用 ``git reset`` 等操作回退版本**
+
+## 3. git rebase -i 多条记录合并
+<img src="./image/img-11.png" width="400"/>
+
+## 4. rebase 理解
 ### git rebase 解决了什么
 让分支变得整洁，减少使用 merge 产生的合并记录。
 
@@ -74,15 +99,6 @@
 **注意：在 feat-01 分支 执行 git rebase master 时，是基于 master 为基础，所以 current change 是 master，Incoming change了 feat-01 **
 
 <img src="./image/img-03.png" width="400"/>
-
-## 3. rebase 过程中解决冲突
-合并过程中会生成一条临时分支，这条临时分支就是处理冲突:
-``git rebase (--continue | --skip | --abort | --quit | --edit-todo | --show-current-patch)``
-
-
-## 4. git rebase -i 多条记录合并
-``git rebase -i HEAD~(n)``
-
 
 ## 危险操作
 ### 多人同分支开始使用 rebase 会覆盖其他的 commit 历史记录 .
