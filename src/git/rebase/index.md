@@ -27,13 +27,13 @@
 - git commit -m 'feat edit' // 将暂存区内容添加到本地仓库中
 - git checkout master
 
-<!-- 开发完成了，准备提交代码。因为是提交到 远程master，所以先跟新一下远程内容到本地 -->
+<!-- 开发完准备提交代码到远程 master，先跟新远程内容到本地 -->
 # master
 
 - git pull origin master // 拉取最新远程 master 分支
 - git checkout feat
 
-<!-- 合并两个分支，解决冲突之后就可以提交我们分支代码，合并过程遇到请看下文 -->
+<!-- 合并两个分支，解决冲突后提交我们分支代码 -->
 # feat
 
 - git rebase master // rebase
@@ -66,7 +66,8 @@
 2. 把 feat-01 共同 commit 之后里面的每个 commit 提出临时保存成 patch 文件，存在 .git/rebase 目录下
 3. 将提出的 commit 更新到 master 分支的最新提交的后面
 4. 将 feat-01 分支指向最后一个 commit
-<img src="./image/img-08.png" width="100%"/>
+<img src="./image/img-09.png" width="100%"/>
+<img src="./image/img-07.png" width="600"/>
 
 
 ### 123
