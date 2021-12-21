@@ -71,8 +71,9 @@
 <img src="./image/img-09.png" width="100%"/>
 <img src="./image/img-07.png" width="600"/>
 
-**注意：在 feat 分支 执行 git rebase main 时，我们的当地分支变成了 main，而外来分支变成了 feat**
+**注意：在 feat-01 分支 执行 git rebase master 时，是基于 master 为基础，所以 current change 是 master，Incoming change了 feat-01 **
 
+<img src="./image/img-03.png" width="400"/>
 
 ## 3. rebase 过程中解决冲突
 合并过程中会生成一条临时分支，这条临时分支就是处理冲突:
