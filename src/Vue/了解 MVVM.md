@@ -9,3 +9,14 @@
 5. 重要的是 VM 将视图中的状态和用户行为分离。
 
 精髓： ***Virtual Dom***
+
+## MVVM 特性
+单向绑定：在 ViewModal 变化跟新 View，而 View 改变时不触发 ViewModal。
+双向绑定：ViewModal 与 View 任一更新触发另一方
+
+## MVVM 视图
+<img width="600" src="./image/img-02.png" />
+<img width="1200" src="./image/img-03.png" />
+## MVC 视图
+<img width="400" src="./image/img-01.png" />
+
