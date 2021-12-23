@@ -103,10 +103,12 @@ Sentry.init({
   Vue: app,
   release: VITE_CONF.VITE_APP_VERSION,
   dsn: VITE_CONF.VITE_APP_SENTRY_DSN,
-  environment: env,
+  environment: 'test',
+  logErrors: true,
   integrations: [
     new Integrations.BrowserTracing({
-      routingInstrumentation: Sentry.vueRouterInstrumentation(router)
+      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      tracingOrigins: ['localhost', 'my-site-url.com', /^\//]
     }),
     new CaptureConsoleIntegration({
       levels: ['error', 'info']
