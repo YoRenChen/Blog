@@ -5,19 +5,21 @@
 ## Sentry 创建新项目
 
 在服务端上新建 ``Vue``项目。
-<img src="./image/img-03" width="400" />
+
+<img src="./image/img-03.png" width="400" />
 
 创建之后可以进入项目，按照提示进行配置。
-<img src="./image/img-04" width="400" />
+
+<img src="./image/img-04.png" width="400" />
 
 也可以根据下面的项目项目配置。
 
 ### Sentry 信息配置
 #### 获取服务端项目 DSN
-<img src="./image/img-01" width="400" />
+<img src="./image/img-01.png" width="400" />
 
 #### 生成服务端 AuthToken
-<img src="./image/img-02" width="400" />
+<img src="./image/img-02.png" width="400" />
 
 ### 项目配置
 #### Install
