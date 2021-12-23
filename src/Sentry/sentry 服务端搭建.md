@@ -20,12 +20,17 @@ sentry 可从官网创建账号，也可本地搭建。
 解压在目录下运行 ``./install.sh``
 
 #### 安装中出现错误：
-docker 分配内存过小，修改docker分配内存：
-``FAIL: Required minimum RAM available to Docker is 3800 MB, found 1986 MB``
+```
+FAIL: Required minimum RAM available to Docker is 3800 MB, found 1986 MB
 
+docker 分配内存过小，修改docker分配内存。
+```
 
-执行: ``brew install coreutils``：
-``./install/_lib.sh: line 15: realpath: command not found`` 错误。
+```
+./install/_lib.sh: line 15: realpath: command not found
+
+运行：brew install coreutils
+```
 
 #### 安装完成
 出现下面执行提示 ``docker compose up -d``，运行 ``http://127.0.0.1:9000/``
