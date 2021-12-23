@@ -118,12 +118,13 @@ Sentry.init({
 })
 ```
 
-### 上传方式
+### sourceMap 上传方式
 这里 sentry 上传 sourceMap 方式有三种：
 
 1. sentry-cli 插件(推荐)
-2. sentry API
-3. sertry webpack 打包时进行上传
+2. [sentry API](https://docs.sentry.io/api/)
+3. sertry webpack 打包时进行上传: ``@sentry/webpack-plugin``/ ``webpack-sentry-plugin``
 
 ### sentry-cli 如何上传
 查看 ``uploadSourceMap.sh``
+
