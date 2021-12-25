@@ -43,6 +43,7 @@ yarn add @sentry/cli -D
 ├── vite.config.ts
 ├── src
 │   └── main.ts
+│   └── axios.ts
 ```
 
 #### .sentryclirc
@@ -116,6 +117,26 @@ Sentry.init({
   ],
   tracesSampleRate: 1.0
 })
+```
+#### axios.ts
+```
+import * as Sentry from '@sentry/vue'
+
+cosnt errorHandler = (response) => {
+  ... ...
+  Sentry.setTag('api', response.config.url)
+  Sentry.setExtra('data', {
+    request: JSON.stringify(response.config.data),
+    response: JSON.stringify(response.data),
+    headers: response.config.headers
+  })
+  if (type === 'error') {
+    Sentry.captureException(new Error(`API-${response.config.url}-${code}`))
+  }
+  if (type === 'info') {
+    console.info(`Device-${response.config.url}`)
+  }
+}
 ```
 
 ### sourceMap 上传方式
