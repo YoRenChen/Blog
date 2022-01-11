@@ -3,7 +3,7 @@
 ### 设计模式
 1. [设计模式](https://github.com/YoRenChen/Blog/tree/main/src/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
 
-### Sentry
+### 前端监控系列 - Sentry
 [Sentry](https://github.com/YoRenChen/Blog/tree/main/src/Sentry/README.md)
 
 ### doc
