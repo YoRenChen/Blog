@@ -2,7 +2,7 @@
 ## 原文
 [type-challenges](https://github.com/type-challenges/type-challenges)
 
-## 初级
+## Easy
 ### pick
 ```
 type MyPick<T, U extends keyof T> = { [K in U]: T[K] }
@@ -62,3 +62,10 @@ type Unshift<T extends number[], K extends number> = [K, ...T]
 ```
 type Parameters<T extends (...arg: unknown[]) => unknown > = T extends (...arg: infer U) => unknown ? [...arg] : never
 ```
+## Medium
+### Get Return Type
+```
+type MyReturnType<T extends (...arg: unknown[]) => unknown> = 
+  T extends (...arg: unknown[]) => infer U ? U : never
+```
+### 
