@@ -68,4 +68,17 @@ type Parameters<T extends (...arg: unknown[]) => unknown > = T extends (...arg: 
 type MyReturnType<T extends (...arg: unknown[]) => unknown> = 
   T extends (...arg: unknown[]) => infer U ? U : never
 ```
-### 
+### Omit
+```
+type MyPick<T, U extends keyof T> = {[P in U]: T[P]}
+type MyExclude<T, U extends T> = T extends U ? never : T
+type MyOmit<T, U extends keyof T> = MyPick<T, MyExclude<keyof T, U>>
+```
+### * Readonly 2
+```
+type MyReadonly2<T, K extends keyof T> = {
+  readonly [P in K]: T[P]
+} & {
+  [L in Exclude<keyof T, K>]: T[L]
+}
+```
