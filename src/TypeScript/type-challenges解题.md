@@ -68,7 +68,7 @@ type Parameters<T extends (...arg: unknown[]) => unknown > = T extends (...arg: 
 type MyReturnType<T extends (...arg: unknown[]) => unknown> = 
   T extends (...arg: unknown[]) => infer U ? U : never
 ```
-### Omit
+### * Omit
 ```
 type MyPick<T, U extends keyof T> = {[P in U]: T[P]}
 type MyExclude<T, U extends T> = T extends U ? never : T
@@ -76,9 +76,16 @@ type MyOmit<T, U extends keyof T> = MyPick<T, MyExclude<keyof T, U>>
 ```
 ### * Readonly 2
 ```
-type MyReadonly2<T, K extends keyof T> = {
-  readonly [P in K]: T[P]
-} & {
-  [L in Exclude<keyof T, K>]: T[L]
+type MyReadonly2<T, K = unknown> = K extends keyof T
+  ? { readonly [P in K]: T[P] } & { [L in Exclude<keyof T, K>]: T[L] }
+  : { readonly [A in keyof T]: T[A] }
+```
+### ! Deep Readonly
+```
+type List = string | number | boolean | undefined | null | Function;
+
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends List ? T[P] : DeepReadonly<T[P]>;
 }
 ```
+### 
