@@ -80,7 +80,7 @@ type MyReadonly2<T, K = unknown> = K extends keyof T
   ? { readonly [P in K]: T[P] } & { [L in Exclude<keyof T, K>]: T[L] }
   : { readonly [A in keyof T]: T[A] }
 ```
-### ! Deep Readonly
+### ! [Deep Readonly](https://github.com/type-challenges/type-challenges/blob/master/questions/9-medium-deep-readonly/README.md)
 ```
 type List = string | number | boolean | undefined | null | Function;
 
@@ -88,4 +88,46 @@ type DeepReadonly<T> = {
   readonly [P in keyof T]: T[P] extends List ? T[P] : DeepReadonly<T[P]>;
 }
 ```
-### 
+### Tuple to Union
+```
+type TupleToUnion<T extends unknown[]> =  T[number]
+```
+### Tuple to Union
+```
+type TupleToUnion<T extends unknown[]> =  T[number]
+```
+### ! [Chainable Options](https://github.com/type-challenges/type-challenges/blob/master/questions/12-medium-chainable-options/README.md)
+```
+type Chainable<T = {}> = {
+  option<K extends string, V>(key: K, value: V): Chainable<T & { [k in K]: V }>
+  get(): { [K in keyof T]: T[K]}
+}
+or
+
+class Chainable<T = {}> {
+  result: { [K in keyof T]: T[K]}
+  option<K extends string, V>(key: K, value: V): Chainable<T & { [k in K]: V }> {
+    this.result[key] = value
+    return this
+  }
+
+  get(): { [K in keyof T]: T[K]} {
+    return this.result
+  }
+}
+```
+### Last of Array
+```
+(typeScript >= 4.0)
+type Last<T extends unknown[]> = T extends [...infer _, infer K] ? K : never
+```
+### Pop
+```
+type Pop<T extends unknown[]> = T extends [...infer U, _] ? U : never
+```
+### ! [Promise.all ](https://github.com/type-challenges/type-challenges/blob/master/questions/20-medium-promise-all/README.md)
+```
+declare function PromiseAll<T extends unknown[]>(values: readonly [...T]): Promise<{
+  [K in keyof T]: T[K] extends Promise<infer R> ? R :T[K]
+}>
+```
