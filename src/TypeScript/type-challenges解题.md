@@ -102,7 +102,8 @@ type Chainable<T = {}> = {
   option<K extends string, V>(key: K, value: V): Chainable<T & { [k in K]: V }>
   get(): { [K in keyof T]: T[K]}
 }
-or
+
+OR
 
 class Chainable<T = {}> {
   result: { [K in keyof T]: T[K]}
@@ -130,4 +131,20 @@ type Pop<T extends unknown[]> = T extends [...infer U, _] ? U : never
 declare function PromiseAll<T extends unknown[]>(values: readonly [...T]): Promise<{
   [K in keyof T]: T[K] extends Promise<infer R> ? R :T[K]
 }>
+```
+### Type Lookup 
+```
+type LookUp<T, U extends string> = T extends { type: U } ? T : never
+```
+### Trim Left
+```
+type TrimLeft<T extends string> = T extends `${' '}${infer B}` ? TrimLeft<B> : T
+```
+### * Trim
+```
+type Trim<T extends string> = T extends `${' '}${infer A}` ? Trim<A> : T extends `${infer B}${' '}` ? Trim<B> : T
+```
+### Capitalize
+```
+type myCapitalize<T extends string> = T extends `${infer A}${infer B}` ? `${Uppercase<A>}${B}` : never
 ```
