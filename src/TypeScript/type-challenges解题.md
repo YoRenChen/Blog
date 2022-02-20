@@ -160,4 +160,20 @@ type ReplaceAll<S extends string, From extends string, To extends string> = S ex
 ```
 type AppendArgument<T extends (...arg: any[]) => any, U> = T extends (...arg: infer R) => number ? (...arg: [...R, U]) => number : never
 ```
+### ! [Permutation](https://github.com/type-challenges/type-challenges/blob/master/questions/296-medium-permutation/README.md)
+```
+type Permutation<T, U = T> = [T] extends [never] ? [] : T extends T ? [T, ...Permutation<Exclude<U, T>>] :never
+```
+### * Length of String 
+```
+type StringLength<T extends string, Arr extends string[]> = T extends `${infer F}${infer R}` ? StringLength<R, [F, ...Arr]> : Arr['length']
+```
+### * [Flatten](https://github.com/type-challenges/type-challenges/blob/master/questions/459-medium-flatten/README.md)
+```
+type Flatten<T extends unknown[]> = T extends [infer R, ...infer Rest] ? R extends unknown[] ? [...Flatten<R>, ...Flatten<Rest>] : [R, ...Flatten<Rest>] : []
+```
+### * [Append to object](https://github.com/type-challenges/type-challenges/blob/master/questions/527-medium-append-to-object/README.md)
+```
+type AppendToObject<T extends object, U extends string, V> = { [K in (keyof T) | U]: K extends keyof T ? T[K]: V }
+```
 ### 
