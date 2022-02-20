@@ -148,3 +148,16 @@ type Trim<T extends string> = T extends `${' '}${infer A}` ? Trim<A> : T extends
 ```
 type myCapitalize<T extends string> = T extends `${infer A}${infer B}` ? `${Uppercase<A>}${B}` : never
 ```
+### Replace
+```
+type Replace<S extends string, From extends string, To extends string> = S extends `${infer L}${From}${infer R}` ? Replace<`${L}${To}${R}`, From, To> : S
+```
+### ReplaceAll
+```
+type ReplaceAll<S extends string, From extends string, To extends string> = S extends `${infer L}${From}${infer R}` ? Replace<`${L}${To}${R}`, From, To> : S
+```
+### * Append Argument
+```
+type AppendArgument<T extends (...arg: any[]) => any, U> = T extends (...arg: infer R) => number ? (...arg: [...R, U]) => number : never
+```
+### 
