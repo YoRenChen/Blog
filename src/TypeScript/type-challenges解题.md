@@ -176,4 +176,20 @@ type Flatten<T extends unknown[]> = T extends [infer R, ...infer Rest] ? R exten
 ```
 type AppendToObject<T extends object, U extends string, V> = { [K in (keyof T) | U]: K extends keyof T ? T[K]: V }
 ```
+### Absolute
+```
+type Absolute<T extends string | number | bigint> = `${T}` extends `-${infer U}` ? U : T
+```
+### * [String to Union](https://github.com/type-challenges/type-challenges/blob/master/questions/531-medium-string-to-union/README.md)
+```
+type StringToUnion<T extends string> = T extends '' ? never : T extends `${infer A}${infer Rest}` ? A | StringToUnion<Rest> : T
+```
+### * [Merge](https://github.com/type-challenges/type-challenges/blob/master/questions/599-medium-merge/README.md)
+```
+type Merge<T, U> = { [K in keyof (T & U)]: K extends keyof U ? U[K] : K extends keyof T ? T[K] : never }
+```
+### * [CamelCase](https://github.com/type-challenges/type-challenges/blob/master/questions/610-medium-camelcase/README.md)
+```
+type CamelCase<T extends string> = T extends `${infer A}-${infer B}${infer Rest}` ? CamelCase<`${A}${Uppercase<B>}${Rest}`> : T 
+```
 ### 
