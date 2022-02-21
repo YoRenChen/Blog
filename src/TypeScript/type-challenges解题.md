@@ -223,10 +223,33 @@ type IsNever<T extends unknown> = [T] extends never[] ? true : false
 type IsUnion<T, U = T> = T extends U ? [U] extends [T] ? false: true : never
 ```
 ### [ReplaceKeys](https://github.com/type-challenges/type-challenges/blob/master/questions/1130-medium-replacekeys/README.md)
-1. 遍历 T ，如果 K 在 U 内 (2)，
-2. 1
+1. 遍历 T ，如果 K 在 U 内 (2)，否则就不在配置内就返回正常值 T[K]
+2. 如果 K 在 O 内，那么对应使用 O 内的对象值，否则给 never
 ```
 type ReplaceKeys<T, U, O> = {
     [K in keyof T]: K extends U ? K extends keyof O ? O[K] : never : T[K] 
 }
+```
+### * [Remove Index Signature](https://github.com/type-challenges/type-challenges/blob/master/questions/1367-medium-remove-index-signature/README.md)
+1. An index signature parameter type must be 'string', 'number', 'symbol', or a template literal type.
+2. [Key Remapping via
+as](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as)
+```
+type RemoveIndexSignature<T extends object> = { [K in keyof T as string extends K ? never:  number extends K ? never : K] : T[K]}
+```
+### ! [Percentage Parser](https://github.com/type-challenges/type-challenges/blob/master/questions/1978-medium-percentage-parser/README.md)
+```
+type PercentageParser<T extends string, U extends [string, string, string] = ['', '', '']> = T extends `${infer A}${infer Rest}`
+? A extends '+' | '-'
+    ? PercentageParser<Rest, [A, '', '']>
+    : A extends '%'
+        ? [U[0], U[1], '%']
+        : PercentageParser<Rest, [U[0], `${U[1]}${A}`, '']>
+: U
+```
+### [Drop Char](https://github.com/type-challenges/type-challenges/blob/master/questions/2070-medium-drop-char/README.md)
+```
+type DropChar<T extends string, U extends string, O extends string = ''> = T extends `${infer A}${infer R}` 
+? A extends U ? DropChar<R, U, O> : DropChar<R, U, `${O}${A}`>
+: O
 ```
