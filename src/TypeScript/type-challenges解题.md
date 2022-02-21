@@ -222,4 +222,11 @@ type IsNever<T extends unknown> = [T] extends never[] ? true : false
 ```
 type IsUnion<T, U = T> = T extends U ? [U] extends [T] ? false: true : never
 ```
-### 
+### [ReplaceKeys](https://github.com/type-challenges/type-challenges/blob/master/questions/1130-medium-replacekeys/README.md)
+1. 遍历 T ，如果 K 在 U 内 (2)，
+2. 1
+```
+type ReplaceKeys<T, U, O> = {
+    [K in keyof T]: K extends U ? K extends keyof O ? O[K] : never : T[K] 
+}
+```
