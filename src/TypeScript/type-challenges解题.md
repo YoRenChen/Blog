@@ -217,4 +217,4 @@ https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributi
 ```
 type IsNever<T extends unknown> = [T] extends never[] ? true : false
 ```
-
+### 
