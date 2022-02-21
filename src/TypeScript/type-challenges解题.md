@@ -68,13 +68,13 @@ type Parameters<T extends (...arg: unknown[]) => unknown > = T extends (...arg: 
 type MyReturnType<T extends (...arg: unknown[]) => unknown> = 
   T extends (...arg: unknown[]) => infer U ? U : never
 ```
-### * Omit
+### * [Omit](https://github.com/type-challenges/type-challenges/blob/master/questions/3-medium-omit/README.md)
 ```
 type MyPick<T, U extends keyof T> = {[P in U]: T[P]}
 type MyExclude<T, U extends T> = T extends U ? never : T
 type MyOmit<T, U extends keyof T> = MyPick<T, MyExclude<keyof T, U>>
 ```
-### * Readonly 2
+### * [Readonly 2](https://github.com/type-challenges/type-challenges/blob/master/questions/8-medium-readonly-2/README.md)
 ```
 type MyReadonly2<T, K = unknown> = K extends keyof T
   ? { readonly [P in K]: T[P] } & { [L in Exclude<keyof T, K>]: T[L] }
@@ -140,7 +140,7 @@ type LookUp<T, U extends string> = T extends { type: U } ? T : never
 ```
 type TrimLeft<T extends string> = T extends `${' '}${infer B}` ? TrimLeft<B> : T
 ```
-### * Trim
+### * [Trim](https://github.com/type-challenges/type-challenges/blob/master/questions/108-medium-trim/README.md)
 ```
 type Trim<T extends string> = T extends `${' '}${infer A}` ? Trim<A> : T extends `${infer B}${' '}` ? Trim<B> : T
 ```
@@ -156,7 +156,7 @@ type Replace<S extends string, From extends string, To extends string> = S exten
 ```
 type ReplaceAll<S extends string, From extends string, To extends string> = S extends `${infer L}${From}${infer R}` ? Replace<`${L}${To}${R}`, From, To> : S
 ```
-### * Append Argument
+### * [Append Argument](https://github.com/type-challenges/type-challenges/blob/master/questions/191-medium-append-argument/README.md)
 ```
 type AppendArgument<T extends (...arg: any[]) => any, U> = T extends (...arg: infer R) => number ? (...arg: [...R, U]) => number : never
 ```
@@ -191,5 +191,19 @@ type Merge<T, U> = { [K in keyof (T & U)]: K extends keyof U ? U[K] : K extends 
 ### * [CamelCase](https://github.com/type-challenges/type-challenges/blob/master/questions/610-medium-camelcase/README.md)
 ```
 type CamelCase<T extends string> = T extends `${infer A}-${infer B}${infer Rest}` ? CamelCase<`${A}${Uppercase<B>}${Rest}`> : T 
+```
+### ! [KebabCase](https://github.com/type-challenges/type-challenges/issues/3164)
+```
+type KebabCase<S extends string> = S extends `${infer Start}${infer End}`
+  ? End extends Uncapitalize<End>
+    ? Uncapitalize<`${Start}${KebabCase<End>}`>
+    : Uncapitalize<`${Start}-${KebabCase<End>}`>
+  : S
+```
+### * [Diff](https://github.com/type-challenges/type-challenges/blob/master/questions/645-medium-diff/README.md)
+```
+type MyExclude<T, K extends T> = T extends K ? never : T
+type myOmit<T, K extends keyof T> = { [P in MyExclude<keyof T, K>]: T[P] }
+type Diff<O, O1> = myOmit<O & O1, keyof O & keyof O1>
 ```
 ### 
