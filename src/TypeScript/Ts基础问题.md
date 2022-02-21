@@ -137,4 +137,22 @@ export function isType(type: any): type is GraphQLType;
 
 export function isScalarType(type: any): type is GraphQLScalarType;
 ```
+### 什么是分布条件类型
+``type UnionType<T, U = T> = T extends U...``
+
+- 被检查类型（即上述的T）是裸类型参数的条件类型称分布条件类型。
+- 在实例化期间，分布条件类型会自动分布在联合类型上，即条件类型应用于联合类型的每个成员，结果是所有结果的联合。
+```
+UnionType<string|number>
+T extends U === 
+(string extends string | number) | (number extends string |number)? ===
+T有两种类型：string、number
+
+被分布式的T: [T] === [string] | [number]
+未被分布式的T1: [T1] === [string | number]
+[T] !== [T1]
+```
+
+### 什么是裸类型参数
+类型参数没有被包装到另一种类型中，例如：数组、元组、函数、或任意其他泛型类型。
 
