@@ -217,4 +217,9 @@ https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributi
 ```
 type IsNever<T extends unknown> = [T] extends never[] ? true : false
 ```
+### * [IsUnion](https://github.com/type-challenges/type-challenges/blob/master/questions/1097-medium-isunion/README.md)
+(分布条件类型)[https://github.com/YoRenChen/Blog/blob/main/src/TypeScript/Ts%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98.md#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B]
+```
+type IsUnion<T, U = T> = T extends U ? [U] extends [T] ? false: true : never
+```
 ### 
