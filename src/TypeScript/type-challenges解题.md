@@ -206,4 +206,15 @@ type MyExclude<T, K extends T> = T extends K ? never : T
 type myOmit<T, K extends keyof T> = { [P in MyExclude<keyof T, K>]: T[P] }
 type Diff<O, O1> = myOmit<O & O1, keyof O & keyof O1>
 ```
-### 
+### AnyOf
+```
+type AnyOf<T extends unknown[]> = T extends [infer A, ...infer R] ? 
+    A extends 0 | "" | false | [] | {} | never ? AnyOf<R> : true 
+  : false
+```
+### IsNever
+https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+```
+type IsNever<T extends unknown> = [T] extends never[] ? true : false
+```
+
