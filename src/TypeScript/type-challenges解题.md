@@ -249,7 +249,7 @@ type PercentageParser<T extends string, U extends [string, string, string] = [''
 
 or
 
-type Left<T extends string> = T extends `${'+' | '-'}${string}` ? T: ''
+type Left<T extends string> = T extends `${infer R}${string}` ? R extends '+' | '-' ? R : '' : ''
 type Right<T extends string> = T extends `${string}%` ? '%' : ''
 type Middle<T, Left extends string, Right extends string> = T extends `${Left}${infer R}${Right}` ? R : ''
 
@@ -265,3 +265,4 @@ type DropChar<T extends string, U extends string, O extends string = ''> = T ext
 ? A extends U ? DropChar<R, U, O> : DropChar<R, U, `${O}${A}`>
 : O
 ```
+### 
