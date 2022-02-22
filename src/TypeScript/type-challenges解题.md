@@ -320,3 +320,13 @@ type OmitByType<T extends object, U> = {
     [key in keyof T as T[key] extends U ? never: key]: T[key]
 }
 ```
+### * [ObjectEntries](https://github.com/type-challenges/type-challenges/blob/master/questions/2946-medium-objectentries/README.md)
+```
+type ObjectEntries<T extends object, U extends keyof T = keyof T> = U extends keyof T ? [U, T[U]] : never
+```
+### [Shift](https://github.com/type-challenges/type-challenges/blob/master/questions/3062-medium-shift/README.md)
+```
+type Shift<T extends unknown[]> = T extends [infer A, ...infer R] ? R : never
+```
+### 
+type TupleToNestedObject<T extends unknown[], U> = T extends never[] ? U : 
