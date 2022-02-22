@@ -265,4 +265,7 @@ type DropChar<T extends string, U extends string, O extends string = ''> = T ext
 ? A extends U ? DropChar<R, U, O> : DropChar<R, U, `${O}${A}`>
 : O
 ```
-### 
+### [MinusOne](https://github.com/type-challenges/type-challenges/blob/master/questions/2257-medium-minusone/README.md)
+```
+type MinusOne<T extends number, U extends number[] = []> = U['length'] extends T ? U[0] : MinusOne<T, [U['length'], ...U]>
+```
