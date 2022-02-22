@@ -246,6 +246,18 @@ type PercentageParser<T extends string, U extends [string, string, string] = [''
         ? [U[0], U[1], '%']
         : PercentageParser<Rest, [U[0], `${U[1]}${A}`, '']>
 : U
+
+or
+
+type Left<T extends string> = T extends `${'+' | '-'}${string}` ? T: ''
+type Right<T extends string> = T extends `${string}%` ? '%' : ''
+type Middle<T, Left extends string, Right extends string> = T extends `${Left}${infer R}${Right}` ? R : ''
+
+type PercentageParser<A extends string> = [
+  Left<A>,
+  Middle<A, Left<A>, Right<A>>,
+  Right<A>
+]
 ```
 ### [Drop Char](https://github.com/type-challenges/type-challenges/blob/master/questions/2070-medium-drop-char/README.md)
 ```
