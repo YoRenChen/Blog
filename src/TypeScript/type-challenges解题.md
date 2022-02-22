@@ -269,3 +269,54 @@ type DropChar<T extends string, U extends string, O extends string = ''> = T ext
 ```
 type MinusOne<T extends number, U extends number[] = []> = U['length'] extends T ? U[0] : MinusOne<T, [U['length'], ...U]>
 ```
+### * [PickByType](https://github.com/type-challenges/type-challenges/blob/master/questions/2595-medium-pickbytype/README.md)
+```
+type PickByType<T extends object, U extends unknown> = {
+    [K in keyof T as U extends T[K] ? K : never ]: T[K]
+}
+```
+### ! [StartsWith](https://github.com/type-challenges/type-challenges/blob/master/questions/2688-medium-startswith/README.md)
+```
+type StartsWith<T extends string, U extends string> = T extends `${U}${string}` ? true:false
+```
+### EndsWith
+```
+type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? true:false
+```
+### * [PartialByKeys](https://github.com/type-challenges/type-challenges/blob/master/questions/2757-medium-partialbykeys/README.md)
+使用 Omit 对 object & object 进行合并。
+```
+type PartialByKeys<T extends object, U extends keyof T> = Omit<({
+    [K in keyof T as K extends U ? never : K]: T[K]
+} & {
+    [K in U]?: T[U]
+}), never>
+
+or 
+
+type PartialByKeys<T extends object, U extends keyof T> = ({
+    [K in keyof T as K extends U ? never : K]: T[K]
+} & {
+    [K in U]?: T[U]
+}) extends infer A ? { [P in keyof A]: A[P] } : never;
+```
+### [RequiredByKeys](https://github.com/type-challenges/type-challenges/blob/master/questions/2759-medium-requiredbykeys/README.md)
+```
+type RequiredByKeys<T extends object, K extends keyof T> = Omit<{
+    [key in keyof T as key extends K ? key : never]-?: T[key]
+} & {
+    [key in keyof T as key extends K ? never : key]: T[key]
+}, never>
+```
+### [Mutable](https://github.com/type-challenges/type-challenges/blob/master/questions/2793-medium-mutable/README.md)
+```
+type Mutable<T extends object> = {
+   -readonly [K in keyof T]: T[K]
+}
+```
+### [OmitByType](https://github.com/type-challenges/type-challenges/blob/master/questions/2852-medium-omitbytype/README.md)
+```
+type OmitByType<T extends object, U> = {
+    [key in keyof T as T[key] extends U ? never: key]: T[key]
+}
+```
