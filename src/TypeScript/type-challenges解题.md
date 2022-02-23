@@ -286,6 +286,10 @@ type EndsWith<T extends string, U extends string> = T extends `${string}${U}` ? 
 ### * [PartialByKeys](https://github.com/type-challenges/type-challenges/blob/master/questions/2757-medium-partialbykeys/README.md)
 使用 Omit 对 object & object 进行合并。
 ```
+type PartialByKeys<T , K extends string | number | symbol = keyof T> = Omit<Partial<Pick<T, K extends keyof T ? K : never>> & Omit<T, K>, never>
+
+& 
+
 type PartialByKeys<T extends object, U extends keyof T> = Omit<({
     [K in keyof T as K extends U ? never : K]: T[K]
 } & {
