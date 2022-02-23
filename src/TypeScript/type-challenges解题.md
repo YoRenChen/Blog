@@ -328,5 +328,22 @@ type ObjectEntries<T extends object, U extends keyof T = keyof T> = U extends ke
 ```
 type Shift<T extends unknown[]> = T extends [infer A, ...infer R] ? R : never
 ```
+### [Tuple to Nested Object](https://github.com/type-challenges/type-challenges/blob/master/questions/3188-medium-tuple-to-nested-object/README.md)
+```
+type TupleToNestedObject<T extends string[], U> = T extends never[] ? U : {[ k in T[number]]: U}
+```
+### [Reverse](https://github.com/type-challenges/type-challenges/blob/master/questions/3192-medium-reverse/README.md)
+```
+type Reverse<T extends unknown[], U extends unknown[] = []> = T extends [...infer Rest, infer A] ? Reverse<Rest, [...U, A]> : U
+
+Or
+
+type Reverse<T extends unknown[]> = T extends [...infer Rest, infer A] ? [A, ...Reverse<Rest>] : []
+```
+
+### * [Flip Arguments](https://github.com/type-challenges/type-challenges/blob/master/questions/3196-medium-flip-arguments/README.md)
+```
+type Reverse<T extends unknown[]> = T extends [...infer Rest, infer A] ? [A, ...Reverse<Rest>] : []
+type FlipArguments<T extends (...arg: any[]) => void> = T extends (...arg: infer T) => void ? (...arg: Reverse<T>) => void : never
+```
 ### 
-type TupleToNestedObject<T extends unknown[], U> = T extends never[] ? U : 
