@@ -350,4 +350,14 @@ type Reverse<T extends unknown[]> = T extends [...infer Rest, infer A] ? [A, ...
 type Reverse<T extends unknown[]> = T extends [...infer Rest, infer A] ? [A, ...Reverse<Rest>] : []
 type FlipArguments<T extends (...arg: any[]) => void> = T extends (...arg: infer T) => void ? (...arg: Reverse<T>) => void : never
 ```
-### 
+### ! [FlattenDepth](https://github.com/type-challenges/type-challenges/blob/master/questions/3243-medium-flattendepth/README.md)
+核心递归处理每一个值
+```
+type FlattenDepth<T, N extends number = 1, A extends any[] = []> = A['length'] extends N
+? T
+: T extends [infer F, ...infer R]
+    ? F extends unknown[]
+        ? [...FlattenDepth<F, N, [...A, number]>, ...FlattenDepth<R, N, A>]
+        : [F, ...FlattenDepth<R, N, A>]
+    : T
+```
