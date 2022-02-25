@@ -390,3 +390,10 @@ type InOrderTraversal<
   ? [...InOrderTraversal<U['left']>, U['val'], ...InOrderTraversal<U['right']>]
   : []
 ```
+### * [Flip](https://github.com/type-challenges/type-challenges/blob/master/questions/4179-medium-flip/README.md)
+type PropertyKey = string | number | symbol
+```
+type Flip<T extends Record<PropertyKey, any>> = {
+    [K in keyof T as `${T[K]}`]: K
+}
+```
