@@ -397,3 +397,14 @@ type Flip<T extends Record<PropertyKey, any>> = {
     [K in keyof T as `${T[K]}`]: K
 }
 ```
+### ![Fibonacci Sequence](https://github.com/type-challenges/type-challenges/blob/master/questions/4182-medium-fibonacci-sequence/README.md)
+```
+type Fibonacci<
+  T extends number,
+  Index extends any[] = [1],
+  Prev extends any[] = [],
+  Current extends any[] = [1]
+> = Index['length'] extends T
+  ? Current['length']
+  : Fibonacci<T, [...Index, 1], Current, [...Prev, ...Current]>
+```
