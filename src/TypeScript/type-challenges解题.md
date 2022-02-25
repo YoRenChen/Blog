@@ -361,3 +361,6 @@ type FlattenDepth<T, N extends number = 1, A extends any[] = []> = A['length'] e
         : [F, ...FlattenDepth<R, N, A>]
     : T
 ```
+### [BEM style string](https://github.com/type-challenges/type-challenges/blob/master/questions/3326-medium-bem-style-string/README.md)
+```
+```
