@@ -361,6 +361,32 @@ type FlattenDepth<T, N extends number = 1, A extends any[] = []> = A['length'] e
         : [F, ...FlattenDepth<R, N, A>]
     : T
 ```
-### [BEM style string](https://github.com/type-challenges/type-challenges/blob/master/questions/3326-medium-bem-style-string/README.md)
+### ! [BEM style string](https://github.com/type-challenges/type-challenges/blob/master/questions/3326-medium-bem-style-string/README.md)
+T extends [], T[number] 会遍历数组
 ```
+// 结果：'btn--price__small' | 'btn--price__mini' 
+type result = BEM<'btn', ['price'], ['small', 'mini']>
+
+type BEM<B extends string, E extends string[], M extends string[]> = `${B}${ArrayToString<E, '__'>}${ArrayToString<M, '--'>}`
+
+type ArrayToString<
+  T extends any[],
+  P extends string
+> = T extends [] ? '' : `${P}${T[number]}`
+```
+### ! [InorderTraversal](https://github.com/type-challenges/type-challenges/blob/master/questions/3376-medium-inordertraversal/README.md)
+中序排序
+```
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
+type InOrderTraversal<
+  T extends TreeNode | null,
+  U extends TreeNode = NonNullable<T>
+> = T extends TreeNode
+  ? [...InOrderTraversal<U['left']>, U['val'], ...InOrderTraversal<U['right']>]
+  : []
 ```
