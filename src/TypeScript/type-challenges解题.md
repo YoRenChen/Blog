@@ -103,12 +103,16 @@ type TupleToUnion<T extends unknown[]> =  T[number]
 ```
 type TupleToUnion<T extends unknown[]> =  T[number]
 ```
-### ! [Chainable Options](https://github.com/type-challenges/type-challenges/blob/master/questions/12-medium-chainable-options/README.md)
+### ! [Chainable Options](https://github.com/type-challenges/type-challenges/blob/master/questions/12-medium-chainable-options/README.md)（可串联构造器）
 ```
 type Chainable<T = {}> = {
   option<K extends string, V>(key: K, value: V): Chainable<T & { [k in K]: V }>
   get(): { [K in keyof T]: T[K]}
 }
+
+# Chainable<...>：递归调用 Chainable 赋予新对象以链式调用的能力。
+# { [k in K]: V }：每次调用 options 构成一个对象
+# T & U：关键词 & 合并 T 和 U 对象的所有 key
 
 OR
 
@@ -124,22 +128,22 @@ class Chainable<T = {}> {
   }
 }
 ```
-### Last of Array
+### Last of Array（数组最后一位）
 ```
 (typeScript >= 4.0)
 type Last<T extends unknown[]> = T extends [...infer _, infer K] ? K : never
 ```
-### Pop
+### Pop（数组 pop 方法）
 ```
 type Pop<T extends unknown[]> = T extends [...infer U, _] ? U : never
 ```
-### ! [Promise.all ](https://github.com/type-challenges/type-challenges/blob/master/questions/20-medium-promise-all/README.md)
+### ! [Promise.all](https://github.com/type-challenges/type-challenges/blob/master/questions/20-medium-promise-all/README.md)（Promise.all返回类型）
 ```
 declare function PromiseAll<T extends unknown[]>(values: readonly [...T]): Promise<{
   [K in keyof T]: T[K] extends Promise<infer R> ? R :T[K]
 }>
 ```
-### Type Lookup 
+### Type Lookup（根据类型值查找类型）
 ```
 type LookUp<T, U extends string> = T extends { type: U } ? T : never
 ```
@@ -151,7 +155,7 @@ type TrimLeft<T extends string> = T extends `${' '}${infer B}` ? TrimLeft<B> : T
 ```
 type Trim<T extends string> = T extends `${' '}${infer A}` ? Trim<A> : T extends `${infer B}${' '}` ? Trim<B> : T
 ```
-### Capitalize
+### Capitalize（首字母大写）
 ```
 type myCapitalize<T extends string> = T extends `${infer A}${infer B}` ? `${Uppercase<A>}${B}` : never
 ```
