@@ -3,72 +3,71 @@
 [type-challenges](https://github.com/type-challenges/type-challenges)
 
 ## Easy
-### pick
+### pick (内置-选取)
 ```
 type MyPick<T, U extends keyof T> = { [K in U]: T[K] }
 ```
-### Readonly
+### Readonly (只读)
 ```
 type MyReadonly<T> = { readonly [K in keyof T]: T[K] }
 ```
-### Tuple to Object
+### Tuple to Object (元祖转对象)
 ```
 type TupleToObject<T extends readonly unknown[]> = {
   [P in T[number]]: P
 }
 ```
-### First of Array
+### First of Array (获取数组第一个元素)
 ```
 type First<T extends unknown[]> = T extends [infer P, ...infer K] ? P : T
 ```
-### Length of Tuple
+### Length of Tuple（获取元祖长度）
 ```
 type Length<T extends unknown[]> = T['length']
 ```
-### Exclude
+### Exclude（内置-排除）
 ```
 type ExcludeType<T, U> = T extends U ? never : T
 ```
-### Awaited
+### Awaited（获取 Promise 包裹类型）
 ```
 type Awaited<T extends Promise<unknown>> = T extends Promise<infer R> ?
   R extends Promise<unknown> ? Awaited<R> : R
   : never
 ```
-### If
+### If（条件判断）
 ```
 type If<T extends boolean, U, K> T extends true ? U : K
 ```
-### Concat
+### Concat（数组 concat 方法）
 ```
 type Concat<U extends unknown[], K extends unknown[]> = [...U, ...K]
 ```
 
-### Includes
+### Includes（数组 includes 方法）
 ```
 type Includes<T extends unknown[], U extends string> = U extends T[number] ? true : false
 ```
 
-### Push
+### Push （数组 push 方法）
 ```
 type Push<T extends unknown[], U extends string> = [...T, U]
 ```
-### Unshift
+### Unshift（数组 unshift 方法：将一个或多个元素添加到数组的开头）
 ```
 type Unshift<T extends number[], K extends number> = [K, ...T]
 ```
-### Parameters
-获取函数参数
+### Parameters（获取函数形参）
 ```
 type Parameters<T extends (...arg: unknown[]) => unknown > = T extends (...arg: infer U) => unknown ? [...arg] : never
 ```
 ## Medium
-### Get Return Type
+### Get Return Type （获取函数返回值）
 ```
 type MyReturnType<T extends (...arg: unknown[]) => unknown> = 
   T extends (...arg: unknown[]) => infer U ? U : never
 ```
-### * [Omit](https://github.com/type-challenges/type-challenges/blob/master/questions/3-medium-omit/README.md)
+### * [Omit](https://github.com/type-challenges/type-challenges/blob/master/questions/3-medium-omit/README.md)（内置-移除T内指定的元素）
 ```
 type MyPick<T, U extends keyof T> = {[P in U]: T[P]}
 type MyExclude<T, U extends T> = T extends U ? never : T
