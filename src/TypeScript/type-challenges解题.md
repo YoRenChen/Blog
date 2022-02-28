@@ -7,6 +7,18 @@
 ```
 type MyPick<T, U extends keyof T> = { [K in U]: T[K] }
 ```
+### Record（内置-构造）
+```
+type Record<K extends keyof any, T> = { [P in K]: T }
+```
+### Exclude（内置-排除）
+```
+type ExcludeType<T, U> = T extends U ? never : T
+```
+### Extract（内置-联合类型的交集）
+```
+type Extract<T, U> = T extends U ? T : never
+```
 ### Readonly (只读)
 ```
 type MyReadonly<T> = { readonly [K in keyof T]: T[K] }
@@ -24,10 +36,6 @@ type First<T extends unknown[]> = T extends [infer P, ...infer K] ? P : T
 ### Length of Tuple（获取元祖长度）
 ```
 type Length<T extends unknown[]> = T['length']
-```
-### Exclude（内置-排除）
-```
-type ExcludeType<T, U> = T extends U ? never : T
 ```
 ### Awaited（获取 Promise 包裹类型）
 ```
