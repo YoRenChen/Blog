@@ -10,12 +10,29 @@
 
 #### watchEffect 使用
 ```
-setup(){
-    const userID = ref(0)
-    watchEffect(() => console.log(userID))
-    return { userID }
-}
+<script setup lang="ts">
+const num = ref(0)
+watchEffect(onInvalidate => {
+    console.log('会自动收集这个响应式变量', num)
+    onInvalidate(() => {
+        console.log('当收集的变化时就会启动这个方法，初始化不执行')
+    })
+    console.log('结束')
+)
+</script>
+
+# 当 num 变化时
+// 当收集的变化时就会启动这个方法，初始化不执行
+// 会自动收集这个响应式变量
+// 结束
 ```
+#### watchPostEffect
+watchEffect 的别名，带有 flush: 'post' 选项。
+在组件更新后触发，而不是在setup阶段，直到首次渲染完成。
+
+#### watchSyncEffect
+watchEffect 的别名，带有 flush: 'sync' 选项。
+
 ### watchEffect 特点
 #### watchEffect 会在 setup 和 组件跟新前响应
 ####  被调用时会被链在该组件直到组件卸载才被停止，除非显示调用
