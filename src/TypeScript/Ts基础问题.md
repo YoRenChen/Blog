@@ -155,4 +155,23 @@ T有两种类型：string、number
 
 ### 什么是裸类型参数
 类型参数没有被包装到另一种类型中，例如：数组、元组、函数、或任意其他泛型类型。
-
+ 
+ ### interface 和 type 区别
+interface：只能描述对象，能继承可重命名，适合于【库类对外保留方法】。
+ 
+type：能使用计算属性(in)，不能继承只能合并(&)，支持原始属性，更适合于【作用组件内部】
+```
+ interface Person {
+  name: string
+ }
+ 
+ interface Person {
+  age: number
+ }
+ => type Person =  { name: string } & { age: number }
+ === 
+ interface IPerson {
+  name: string
+  age: number
+}
+```
