@@ -1,4 +1,4 @@
-# vue3 - watchEffect、 Effect Scope API 响应性API
+# vue3 - watchEffect
 ## watchEffect
 > 立即执行传入的一个函数，同时响应式追踪其依赖，并在其依赖变更时重新运行该函数。
 
@@ -169,27 +169,3 @@ let onCleanup: OnCleanup = (fn: () => void) => {
     }
   }
 ```
-
-## Effect Scope API
-#### 前提
-setup中，响应式会在开始初始化的时候被收集，在实例被卸载的时候自动取消跟踪。
-
-在组件之外或独立使用包的时候并不会自动帮我们取消跟踪。
-
-#### 显示取消 computed & watch的响应式依赖
-维护一个数组，把computed & watch/effect加入，在卸载的时候遍历运行：
-```
-const disposables = []
-
-const counter = ref(0)
-const doubled = computed(() => counter.value * 2)
-const stopWatch1 = watchEffect(() => {...})
-const stopWatch2 = watch(doubled, () => {...})
-
-disposables.push(() => stop(doubled.effect))
-disposables.push(stopWatch1)
-disposables.push(stopWatch2)
-```
-
-effectScope 本质解决了啥：
-1. 
