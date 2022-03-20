@@ -1,0 +1,47 @@
+# Effect Scope API 响应性API
+## vue3.2 - Effect Scope API
+### 前提
+setup中响应式会在开始初始化的时候被收集，在实例被卸载的时候自动取消跟踪。但在组件之外或独立使用包的时候并不会自动帮我们取消跟踪。
+
+### 维护数组显式取消 computed & watch的响应式依赖
+维护一个数组，把computed & watch/effect加入，在卸载的时候遍历运行：
+```
+const disposables = []
+
+const num = ref(0)
+const numComp = computed(() => num.value)
+const stopWatch1 = watchEffect(() => {...})
+const stopWatch2 = watch(doubled, () => {...})
+
+disposables.push(() => stop(doubled.effect))
+disposables.push(stopWatch1)
+disposables.push(stopWatch2)
+```
+### EffectScope API
+#### API
+```
+function effectScope(deached?: boolean): EffectScope
+
+interface EffectScope {
+    run<T>(fn: () => T): T | undefined
+    stop(): void
+}
+```
+#### 使用
+```
+const num = ref(0)
+const scope = effectScope()
+scope.run(() => {
+    const numComp = computed(() => num.value)
+    watchEffect(() => {...})
+    watch(doubled, () => {...})
+})
+
+scope.stop()
+// 调用stop后会执行一次，类似EffectWatch的setup阶段
+```
+#### effectScope 解决了啥
+解决不在 setup 里可以销毁所创建的 watcher
+
+#### 实现
+（待实现）
