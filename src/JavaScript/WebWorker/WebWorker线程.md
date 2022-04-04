@@ -3,6 +3,15 @@
 
 > 一旦创建成功会始终运行。除非实例引用为0会自动关闭。
 
+### 使用场景说明
+> 使用 worker 只在若干个并行任务需要执行时，才具备优势。单个 worker 而 主线程任务 需等待它的执行，那就和放主线程无异。
+
+异步任务额执行的时候会被放到浏览器的事件队列中，等到 JS 运行空闲后才会被执行。
+
+当 promise / async 遇到复杂的运算如 加载引擎、图形识别、加密算法操作。
+
+长时间运行 js 降低用户体验，应把复杂运算从业务抽离，让计算运行同时不阻塞用户界面。
+
 ### 限制
 #### 限制条件
 1. 同源限制。需要与主线程脚本同源
@@ -16,6 +25,18 @@
 2. 只读的 location 对象
 3. ``setTimeout()``, ``setInterval()``, ``clearTimeout()``, ``clearInterval()``
 4. ``XMLHttpRequest`` 构造函数
+
+### 模式
+#### 传输模式
+1. ``Copying the message`` 数据复制模式
+需要对数据进行一系列的 序列化 - 复制 - 发送 - 接收 - 反序列化
+2. ``Transferring the message`` 数据传递模式
+可直接将数据进行传输，传输模式仅支持 ArrayBuffer(二进制)
+> How fast are web workers?
+
+**使用 ``Transferring the message``模式**。
+1. ArrayBuffer
+2. Three.js的库中发现除了Geometry还有一个BufferGeometry，那么我们只要简单的基于原有算法结合BufferGeometry中的fromGeometry方法实现一个纯数据的BufferGeometry再返回到主线程，既加速了Worker的效率，也加速了Geometry的生成效率，一举两得！
 
 ### 配置
 webpack 4: ``worker-loader``
@@ -56,44 +77,6 @@ const worker = new Worker(new URL('jsUrl', import.meta.url));
 # import.meta.url 只提供 new URL 让 webpack / vite 获取代码路径
 ```
 
-### 使用场景
-异步任务额执行的时候会被放到浏览器的事件队列中，等到 JS 运行空闲后才会被执行。
-当 promise / async 遇到复杂的运算如 加载引擎、图形识别、加密算法操作。
-长时间运行 js 降低用户体验，应把复杂运算从业务抽离，让计算运行同时不阻塞用户界面。
-#### 轮询
-Worker 轮询数据，跟缓存做比较。如果不一致，就说明服务端有了新的变化，因此就要通知主线程。
-```
-const createWorker = (f) => {
-  const blob = new Blob(['(' + f.toString() + ')()'])
-  const url = window.URL.createObjectURL(blob)
-  return new Worker(url)
-}
-
-const messageFn = (e) => {
-  let cache
-  // 数据对比
-  const compare = (newVal, oldVal) => {
-      ...
-      self.postMessage(newVal)
-  }
-
-  setInterval(() => {
-    request.then(res => {
-      compare(res, cache)  
-    })
-  }, 1000)
-}
-
-const pollingWorker = createWorker(messageFn)
-pollingWorker.postMessage('init')
-// 跟新数据
-pollingWorker.onmessage = (e) => {}
-
-// 清除 worker
-onBeforeUnmount(() => pollingWorker.terminate())
-```
-#### 
-
 ### API
 > onFn 等同 .addEventListener('Fn', cb)
 
@@ -117,21 +100,15 @@ onBeforeUnmount(() => pollingWorker.terminate())
 立即终止 Worker 线程。
 
 **# worker 线程**
-
 ``self.name``
 Worker 的名字。该属性只读，由构造函数指定。
-
 ``self.onmessage``
 指定message事件的监听函数。
-
 ``self.onmessageerror``
 指定 messageerror 事件的监听函数。发送的数据无法序列化成字符串时，会触发这个事件。
-
 ``self.close()``
 关闭 Worker 线程。
-
 ``self.postMessage()``
 向产生这个 Worker 线程发送消息。
-
 ``self.importScripts()``
 加载 JS 脚本。
