@@ -1,4 +1,4 @@
-# Promise
+# Promise 基础
 ## 目的
 promise 解决 回调地狱，使用链式调用方式。
 
