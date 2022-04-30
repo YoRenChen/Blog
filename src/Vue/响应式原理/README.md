@@ -1,4 +1,4 @@
-# 响应式原理
+# 响应式原理（Vue2 + Vue3）
 ## Vue 2
 通过 object.definePrototype 定义响应式对象。
 
