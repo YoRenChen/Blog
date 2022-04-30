@@ -39,16 +39,15 @@ Dep.target 类型是 Watcher
 > 通过 Watcher 类的 ``get()`` 把当前 Watcher 实例压栈到 target 栈数组中，然后把 Dep.target 设置为当前的 Watcher 实例
 
 
-### observe()的作用
-observe() 方法判断目标对象是否可以赋值 ``__ob__``属性，并通过 Observer 类进行赋值。
-
 ### Observer 类的作用
-1. 通过 def 方法赋值 ``__ob__`` 属性
-2. 对于对象，递归调用 defineReactive 方法给子对象赋值响应式
-3. 对于数组，递归给数组每个值调用 observe 方法
+作为观察者。
+将数据通过``object.definePrototype ``转换为访问器属性，
+- Observer构造方法：递归添加 ``__ob__`` 属性
+- observe()：为value创建一个观察者Observer，已有观察者的，则返回现有的观察者。
+- defineReactive(): 通过Object.defineProperty劫持getter、setter，并创建对应的 Dep 对象。
 
-### def 方法
-定义__ob__的目的是让__ob__在对象属性遍历的时候不可被枚举出来。
+### def() 方法
+目的是让__ob__在对象属性遍历的时候不可被枚举出来。
 
 
 ### observeArray 方法
