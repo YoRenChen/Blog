@@ -1,4 +1,4 @@
-# 响应式原理（Vue2 + Vue3）
+# 响应式原理
 ## Vue 2
 通过 object.definePrototype 定义响应式对象。
 
@@ -111,6 +111,16 @@ Dep.target 类型是 Watcher
 
 ### Vue.observable 实现
 调用 ``observe()``
+
+### 为什么 Array 型数据会有不同的变化侦测方式
+出于性能考虑。
+``Object.defineProperty`` 可以监听数组的值。
+1. 数组过长加重 getter 和 setter 负担(循环)。
+2. 对象数组触发 getter 和 setter 会依次读取数组的值
+
+### 为什么 响应式数据不监听下标
+出于性能考虑。
+每次下标改动都是会触发数组遍历更新试图，随着数据长度增加会呈现指数增长，对比于使用 ``数组更新检测``
 
 ## Vue3
 
