@@ -48,3 +48,6 @@ function sameVnode (a, b) {
 ### diff 深度优先算法
 
 patchVnode 调用 updateChildren 可知是深度优先算法。
+
+参考
+https://segmentfault.com/a/1190000020663531
